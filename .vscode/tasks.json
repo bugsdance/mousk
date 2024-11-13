@@ -95,7 +95,7 @@
         "-gcflags",
         "all=-N -l",
         "-o",
-        "build/bin/mousek.exe"
+        "build/bin/mousk.exe"
       ],
       "dependsOn": [
         "npm install",
@@ -118,7 +118,7 @@
         "-gcflags",
         "all=-N -l",
         "-o",
-        "build/bin/mousek.exe"
+        "build/bin/mousk.exe"
       ],
       "dependsOn": [
         // "npm install",

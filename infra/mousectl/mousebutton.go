@@ -1,7 +1,7 @@
 package mousectl
 
 import (
-	"mousek/common/logger"
+	"mousk/common/logger"
 	"time"
 	"unsafe"
 )

@@ -1,8 +1,8 @@
 package monitor
 
 import (
-	"mousek/common/logger"
-	"mousek/infra/base"
+	"mousk/common/logger"
+	"mousk/infra/base"
 	"syscall"
 	"unsafe"
 )

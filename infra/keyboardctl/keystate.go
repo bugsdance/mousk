@@ -2,7 +2,7 @@ package keyboardctl
 
 import (
 	"fmt"
-	"mousek/infra/base"
+	"mousk/infra/base"
 	"time"
 )
 

@@ -1,8 +1,8 @@
 package mousectl
 
 import (
-	"mousek/common/logger"
-	"mousek/infra/base"
+	"mousk/common/logger"
+	"mousk/infra/base"
 )
 
 type ScrollDirection string

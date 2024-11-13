@@ -1,12 +1,12 @@
 package main
 
 import (
-	"mousek/common/logger"
-	"mousek/infra/base"
-	"mousek/infra/config"
-	"mousek/infra/keyboardctl"
-	"mousek/infra/mousectl"
-	"mousek/infra/util"
+	"mousk/common/logger"
+	"mousk/infra/base"
+	"mousk/infra/config"
+	"mousk/infra/keyboardctl"
+	"mousk/infra/mousectl"
+	"mousk/infra/util"
 	"os"
 	"time"
 )
@@ -37,7 +37,7 @@ func main() {
 // 	// 'Bind' is a list of Go struct instances. The frontend has access to the methods of these instances.
 // 	// 'Mac888898888' options tailor the application when running an macOS.
 // 	app := application.New(application.Options{
-// 		Name: "mousek",
+// 		Name: "mousk",
 // 		Windows: application.WindowsOptions{
 // 			DisableQuitOnLastWindowClosed: true,
 // 		},
@@ -56,7 +56,7 @@ func main() {
 // 		// },
 // 	})
 // 	start_at_login := start_at_login.NewPlugin(start_at_login.Config{
-// 		RegistryKey: "mousek.exe",
+// 		RegistryKey: "mousk.exe",
 // 	})
 // 	start_at_login.StartAtLogin(true)
 
@@ -138,34 +138,34 @@ func keyboardProcess() {
 	// load config
 	config.Init()
 	var ts = keyboardctl.GetCodesByNames
-	// var ta = keyboardctl.GetCodeByName
+	var ta = keyboardctl.GetCodeByName
 	settings := config.GetSettings()
 
 	// alt+0 : toggle control mode
 	vkCodesToggleControlMode := ts(settings.PresetFunc.ActiveMode)
-	keyboardctl.RegisterNormal(ToggleControlMode, vkCodesToggleControlMode...)
+	keyboardctl.RegisterNormal(ToggleControlMode, 0, vkCodesToggleControlMode...)
 
 	// 屏蔽部分按键
-	keyboardctl.RegisterMulti(BlockSpace, keyboardctl.ExportAllCodes()...)
+	keyboardctl.RegisterMulti(BlockKey, -1, keyboardctl.ExportAllCodes()...)
 
 	vkCodesForceQuit := ts(settings.PresetFunc.ForceQuit)
-	keyboardctl.RegisterNormal(ForceQuit, vkCodesForceQuit...)
+	keyboardctl.RegisterNormal(ForceQuit, 0, vkCodesForceQuit...)
 
 	// // alt+r: reset setting
 	// vkCodesResetSetting := ts(settings.PresetFunc.ResetSetting)
-	// keyboardctl.RegisterNormal(ResetSetting, vkCodesResetSetting...)
+	// keyboardctl.RegisterNormal(ResetSetting,0, vkCodesResetSetting...)
 
 	// Q : tmp quit
 	vkCodesTmpQuitMode := ts(settings.PresetFunc.TmpQuitMode)
-	keyboardctl.RegisterOne(TmpQuitControlMode, vkCodesTmpQuitMode...)
+	keyboardctl.RegisterOne(TmpQuitControlMode, 0, vkCodesTmpQuitMode...)
 
 	// space+comma : open setting panel
 	// vkCodesOpenSetting := ts(settings.PresetFunc.OpenSetting)
-	// keyboardctl.RegisterOne(ToggleOptionView, vkCodesOpenSetting...)
+	// keyboardctl.RegisterOne(ToggleOptionView,0, vkCodesOpenSetting...)
 
-	// // 1\2\3\4\5 : in ModeControl, control the speed of your mouse move
-	// vkCodesMulitiSpeedLevel := [][]uint32{{keyboardctl.VK_1}, {keyboardctl.VK_2}, {keyboardctl.VK_3}, {keyboardctl.VK_4}, {keyboardctl.VK_5}}
-	// keyboardctl.RegisterMulti(SpeedLevelSwitch, vkCodesMulitiSpeedLevel...)
+	// 1\2\3\4\5 : in ModeControl, control the speed of your mouse move
+	vkCodesMulitiSpeedLevel := [][]uint32{{keyboardctl.VK_1}, {keyboardctl.VK_2}, {keyboardctl.VK_3}, {keyboardctl.VK_4}, {keyboardctl.VK_5}}
+	keyboardctl.RegisterMulti(SpeedLevelSwitch, 0, vkCodesMulitiSpeedLevel...)
 
 	// H\J\K\L : in ModeControl, control the mouse movement like vim
 	// W\A\S\D : in ModeControl, control the mouse movement like fps game
@@ -177,33 +177,33 @@ func keyboardProcess() {
 	vkCodesSetMousePosDownSlow := ts(settings.PresetFunc.MouseMove.Slow.Down)
 	vkCodesSetMousePosLeftSlow := ts(settings.PresetFunc.MouseMove.Slow.Left)
 	vkCodesSetMousePosRightSlow := ts(settings.PresetFunc.MouseMove.Slow.Right)
-	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionDown, mousectl.SpeedFast), vkCodesSetMousePosDownFast...)
-	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionUp, mousectl.SpeedFast), vkCodesSetMousePosUpFast...)
-	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionLeft, mousectl.SpeedFast), vkCodesSetMousePosLeftFast...)
-	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionRight, mousectl.SpeedFast), vkCodesSetMousePosRightFast...)
-	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionUp, mousectl.SpeedSlow), vkCodesSetMousePosUpSlow...)
-	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionDown, mousectl.SpeedSlow), vkCodesSetMousePosDownSlow...)
-	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionLeft, mousectl.SpeedSlow), vkCodesSetMousePosLeftSlow...)
-	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionRight, mousectl.SpeedSlow), vkCodesSetMousePosRightSlow...)
+	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionDown, mousectl.SpeedFast), 0, vkCodesSetMousePosDownFast...)
+	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionUp, mousectl.SpeedFast), 0, vkCodesSetMousePosUpFast...)
+	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionLeft, mousectl.SpeedFast), 0, vkCodesSetMousePosLeftFast...)
+	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionRight, mousectl.SpeedFast), 0, vkCodesSetMousePosRightFast...)
+	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionUp, mousectl.SpeedSlow), 0, vkCodesSetMousePosUpSlow...)
+	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionDown, mousectl.SpeedSlow), 0, vkCodesSetMousePosDownSlow...)
+	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionLeft, mousectl.SpeedSlow), 0, vkCodesSetMousePosLeftSlow...)
+	keyboardctl.RegisterOne(MoveMouseFunc(mousectl.DirectionRight, mousectl.SpeedSlow), 0, vkCodesSetMousePosRightSlow...)
 
 	// I\R : in ModeControl, simulate mouse left button click
 	// vkCodesMouseLeftClick := [][]uint32{{keyboardctl.VK_I}, {keyboardctl.VK_R}}
 	vkCodesMouseLeftClick := [][]uint32{{ta(settings.PresetFunc.MouseLeftButtonClick.Primary)}, {ta(settings.PresetFunc.MouseLeftButtonClick.Secondary)}}
-	keyboardctl.RegisterMulti(MouseLeftClick, vkCodesMouseLeftClick...)
+	keyboardctl.RegisterMulti(MouseLeftClick, 0, vkCodesMouseLeftClick...)
 
 	// O\T : in ModeControl, simulate mouse right button click
 	// vkCodesMouseRightClick := [][]uint32{{keyboardctl.VK_O}, {keyboardctl.VK_T}}
 	vkCodesMouseRightClick := [][]uint32{{ta(settings.PresetFunc.MouseRightButtonClick.Primary)}, {ta(settings.PresetFunc.MouseRightButtonClick.Secondary)}}
-	keyboardctl.RegisterMulti(MouseRightClick, vkCodesMouseRightClick...)
+	keyboardctl.RegisterMulti(MouseRightClick, 0, vkCodesMouseRightClick...)
 
 	// C\N : in ModeControl, simulate mouse left button hold
 	// vkCoodesLeftDown := [][]uint32{{keyboardctl.VK_C}, {keyboardctl.VK_N}}
 	vkCoodesLeftDown := [][]uint32{{ta(settings.PresetFunc.MouseLeftButtonHold.Primary)}, {ta(settings.PresetFunc.MouseLeftButtonHold.Secondary)}}
-	keyboardctl.RegisterWithReleaseEventMulti(MouseLeftDown, vkCoodesLeftDown...)
+	keyboardctl.RegisterWithReleaseEventMulti(MouseLeftDown, 0, vkCoodesLeftDown...)
 
 	// in ModeControl ,control the speed of your mouse scroll
 	vkCodesMulitiScrollSpeedLevel := [][]uint32{{keyboardctl.VK_LSHIFT, keyboardctl.VK_1}, {keyboardctl.VK_LSHIFT, keyboardctl.VK_2}, {keyboardctl.VK_LSHIFT, keyboardctl.VK_3}, {keyboardctl.VK_LSHIFT, keyboardctl.VK_4}, {keyboardctl.VK_LSHIFT, keyboardctl.VK_5}}
-	keyboardctl.RegisterMulti(ScrollSpeedLevelSwitch, vkCodesMulitiScrollSpeedLevel...)
+	keyboardctl.RegisterMulti(ScrollSpeedLevelSwitch, 0, vkCodesMulitiScrollSpeedLevel...)
 	// shift + H\J\K\L : in ModeControl, control the mouse scroll like vim
 	// shift + W\A\S\D : in ModeControl, control the mouse scroll like fps game
 	vkCodesMouseVerticalScrollDownFast := ts(settings.PresetFunc.MouseScroll.Fast.Down)
@@ -214,14 +214,14 @@ func keyboardProcess() {
 	vkCodesMouseVerticalScrollUpSlow := ts(settings.PresetFunc.MouseScroll.Slow.Up)
 	vkCodesMouseHorizontalScrollLeftSlow := ts(settings.PresetFunc.MouseScroll.Slow.Left)
 	vkCodesMouseHorizontalScrollRightSlow := ts(settings.PresetFunc.MouseScroll.Slow.Right)
-	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionVerticalDown, mousectl.SpeedFast), vkCodesMouseVerticalScrollDownFast...)
-	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionVerticalUp, mousectl.SpeedFast), vkCodesMouseVerticalScrollUpFast...)
-	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionHorizontalLeft, mousectl.SpeedFast), vkCodesMouseHorizontalScrollLeftFast...)
-	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionHorizontalRight, mousectl.SpeedFast), vkCodesMouseHorizontalScrollRightFast...)
-	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionHorizontalLeft, mousectl.SpeedSlow), vkCodesMouseHorizontalScrollLeftSlow...)
-	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionHorizontalRight, mousectl.SpeedSlow), vkCodesMouseHorizontalScrollRightSlow...)
-	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionVerticalDown, mousectl.SpeedSlow), vkCodesMouseVerticalScrollDownSlow...)
-	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionVerticalUp, mousectl.SpeedSlow), vkCodesMouseVerticalScrollUpSlow...)
+	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionVerticalDown, mousectl.SpeedFast), 0, vkCodesMouseVerticalScrollDownFast...)
+	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionVerticalUp, mousectl.SpeedFast), 0, vkCodesMouseVerticalScrollUpFast...)
+	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionHorizontalLeft, mousectl.SpeedFast), 0, vkCodesMouseHorizontalScrollLeftFast...)
+	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionHorizontalRight, mousectl.SpeedFast), 0, vkCodesMouseHorizontalScrollRightFast...)
+	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionHorizontalLeft, mousectl.SpeedSlow), 0, vkCodesMouseHorizontalScrollLeftSlow...)
+	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionHorizontalRight, mousectl.SpeedSlow), 0, vkCodesMouseHorizontalScrollRightSlow...)
+	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionVerticalDown, mousectl.SpeedSlow), 0, vkCodesMouseVerticalScrollDownSlow...)
+	keyboardctl.RegisterOne(ScrollMouseFunc(mousectl.DirectionVerticalUp, mousectl.SpeedSlow), 0, vkCodesMouseVerticalScrollUpSlow...)
 
 	// _____________________________________________________________________________________________________________________________11111111111111111111111111222222222222222222222222222222222223333333333333333
 	// main keyboard event listener
@@ -417,7 +417,6 @@ func ForceQuit(wParam uintptr, vkCode, scanCode uint32) uintptr {
 	return 1
 }
 
-func BlockSpace(wParam uintptr, vkCode, scanCode uint32) uintptr {
-	logger.Infof("", "block space")
+func BlockKey(wParam uintptr, vkCode, scanCode uint32) uintptr {
 	return 1
 }

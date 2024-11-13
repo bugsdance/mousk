@@ -1,4 +1,4 @@
-module mousek
+module mousk
 
 go 1.22
 

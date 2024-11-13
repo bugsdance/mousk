@@ -1,6 +1,6 @@
 package base
 
-import "mousek/infra/config"
+import "mousk/infra/config"
 
 var (
 	mode              = 0 // 0:normal, 1:control

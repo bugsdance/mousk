@@ -2,7 +2,7 @@ package ui
 
 import (
 	"fmt"
-	"mousek/common/logger"
+	"mousk/common/logger"
 	"time"
 
 	"github.com/wailsapp/wails/v3/pkg/application"

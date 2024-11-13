@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 	"log"
-	"mousek/common/logger"
+	"mousk/common/logger"
 	"os"
 	"os/user"
 	"path/filepath"
@@ -185,7 +185,7 @@ func getUserConfigPath() (string, string, error) {
 	}
 
 	// 构建文件路径
-	configDir := filepath.Join(usr.HomeDir, ".config", "mousek")
+	configDir := filepath.Join(usr.HomeDir, ".config", "mousk")
 	filePath := filepath.Join(configDir, "confs.toml")
 	return configDir, filePath, nil
 }

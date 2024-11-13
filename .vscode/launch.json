@@ -9,12 +9,12 @@
       "program": "${workspaceFolder}/main.go",
     },
     {
-      "name": "Wails: Debug mousek",
+      "name": "Wails: Debug mousk",
       "type": "go",
       "request": "launch",
       "console": "internalConsole",
       "mode": "exec",
-      "program": "${workspaceFolder}/build/bin/mousek.exe",
+      "program": "${workspaceFolder}/build/bin/mousk.exe",
       "preLaunchTask": "build debug",
       // "preLaunchTask": "wails dev",
       "cwd": "${workspaceFolder}"
@@ -25,7 +25,7 @@
       "request": "launch",
       "console": "internalConsole",
       "mode": "exec",
-      "program": "${workspaceFolder}/build/bin/mousek.exe",
+      "program": "${workspaceFolder}/build/bin/mousk.exe",
       // "preLaunchTask": "build debug",
       "preLaunchTask": "wails dev",
       "cwd": "${workspaceFolder}"
@@ -35,7 +35,7 @@
       "type": "go",
       "debugAdapter": "dlv-dap",
       "request": "attach",
-      "processId": "mousek.exe",
+      "processId": "mousk.exe",
       // "preLaunchTask": "wails dev"
     },
     // {
@@ -43,24 +43,24 @@
     //   "request": "launch",
     //   "console": "internalConsole",
     //   "mode": "exec",
-    //   "program": "${workspaceFolder}/build/bin/mousek.exe",
+    //   "program": "${workspaceFolder}/build/bin/mousk.exe",
     //   "cwd": "${workspaceFolder}"
     // },
     {
-      "name": "Wails: Production mousek",
+      "name": "Wails: Production mousk",
       "type": "go",
       "request": "launch",
       "mode": "exec",
-      "program": "${workspaceFolder}/build/bin/mousek.exe",
+      "program": "${workspaceFolder}/build/bin/mousk.exe",
       "preLaunchTask": "build",
       "cwd": "${workspaceFolder}"
     },
     {
-      "name": "Wails: Dev mousek",
+      "name": "Wails: Dev mousk",
       "type": "go",
       "request": "launch",
       "mode": "exec",
-      "program": "${workspaceFolder}/build/bin/mousek.exe",
+      "program": "${workspaceFolder}/build/bin/mousk.exe",
       "preLaunchTask": "build dev",
       "cwd": "${workspaceFolder}"
     }

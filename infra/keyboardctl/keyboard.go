@@ -2,8 +2,8 @@ package keyboardctl
 
 import (
 	"encoding/json"
-	"mousek/common/logger"
-	"mousek/infra/base"
+	"mousk/common/logger"
+	"mousk/infra/base"
 	"os"
 	"syscall"
 	"time"
@@ -41,6 +41,7 @@ type KeyCallback struct {
 	FirstClickKeys     []uint32  // for example. []{"ctrl","a"}
 	SecondClickKeys    []uint32  // for example. []{"ctrl","a"}
 	Cb                 Callback2 `json:"-"`
+	CbPriority         int
 	withReleaseEvent   bool
 	effectOnNormalMode bool
 }
@@ -51,7 +52,7 @@ type Callback HookProc
 type Callback2 func(wParam uintptr, vkCode, scanCode uint32) uintptr
 type HookProc func(nCode int, wParam uintptr, lParam uintptr) uintptr
 
-func registerKeyListening(cb Callback2, effectOnNormal bool, withReleaseEvent bool, firstClickVkCodes []uint32, secondClickVkCodes []uint32) {
+func registerKeyListening(cb Callback2, cbPriority int, effectOnNormal bool, withReleaseEvent bool, firstClickVkCodes []uint32, secondClickVkCodes []uint32) {
 	for _, v := range firstClickVkCodes {
 		if listeningKeyReference[v] == nil {
 			listeningKeyReference[v] = &KeyReference{}
@@ -61,6 +62,7 @@ func registerKeyListening(cb Callback2, effectOnNormal bool, withReleaseEvent bo
 			FirstClickKeys:     firstClickVkCodes,
 			SecondClickKeys:    secondClickVkCodes,
 			Cb:                 cb,
+			CbPriority:         cbPriority,
 			withReleaseEvent:   withReleaseEvent,
 			effectOnNormalMode: effectOnNormal,
 		})
@@ -91,7 +93,7 @@ func unRegisterKeyListening(vkCodes ...uint32) {
 
 }
 
-func RegisterMulti(cb Callback2, mulitiVkCodes ...[]uint32) {
+func RegisterMulti(cb Callback2, priority int, mulitiVkCodes ...[]uint32) {
 	// switch keyAction {
 	// case WM_KEYDOWN:
 
@@ -101,20 +103,20 @@ func RegisterMulti(cb Callback2, mulitiVkCodes ...[]uint32) {
 	// 	return
 	// }
 	for _, vkCodes := range mulitiVkCodes {
-		registerKeyListening(cb, false, false, vkCodes, nil)
+		registerKeyListening(cb, priority, false, false, vkCodes, nil)
 	}
 }
 
-func RegisterNormal(cb Callback2, vkCodes ...uint32) {
-	registerKeyListening(cb, true, false, vkCodes, nil)
+func RegisterNormal(cb Callback2, priority int, vkCodes ...uint32) {
+	registerKeyListening(cb, priority, true, false, vkCodes, nil)
 }
 
-func RegisterOne(cb Callback2, vkCodes ...uint32) {
-	registerKeyListening(cb, false, false, vkCodes, nil)
+func RegisterOne(cb Callback2, priority int, vkCodes ...uint32) {
+	registerKeyListening(cb, priority, false, false, vkCodes, nil)
 }
 
-func RegisterDoubleClick(cb Callback2, firstClick []uint32, secondClick []uint32) {
-	registerKeyListening(cb, false, false, firstClick, secondClick)
+func RegisterDoubleClick(cb Callback2, priority int, firstClick []uint32, secondClick []uint32) {
+	registerKeyListening(cb, priority, false, false, firstClick, secondClick)
 }
 
 func EffectOnNormalMode(vkCode uint32) bool {
@@ -194,12 +196,19 @@ func LowLevelKeyboardCallback(nCode int, wParam uintptr, lParam uintptr) uintptr
 				return 0
 			}
 
+			// order by priority
 			mostKeyNumCallback := satisfiedCallback[0]
 
 			for _, v := range satisfiedCallback {
 				logger.Infof("", "all keycallback:%+v", GetNamesByCodes(v.FirstClickKeys))
 				if len(v.FirstClickKeys) > len(mostKeyNumCallback.FirstClickKeys) {
 					mostKeyNumCallback = v
+				} else if len(v.FirstClickKeys) == len(mostKeyNumCallback.FirstClickKeys) {
+					if v.CbPriority > mostKeyNumCallback.CbPriority {
+						mostKeyNumCallback = v
+					}
+
+				} else {
 				}
 			}
 			logger.Infof("", "most keycallback:%+v", GetNamesByCodes(mostKeyNumCallback.FirstClickKeys))
@@ -322,7 +331,7 @@ func SetReleased(vkCode uint32) {
 	logger.Infof("", "Key released (VK code): %d, last released: %s", vkCode, currTime)
 }
 
-func RegisterWithReleaseEventMulti(cb Callback2, mulitiVkCodes ...[]uint32) {
+func RegisterWithReleaseEventMulti(cb Callback2, prority int, mulitiVkCodes ...[]uint32) {
 	// switch keyAction {
 	// case WM_KEYDOWN:
 
@@ -332,7 +341,7 @@ func RegisterWithReleaseEventMulti(cb Callback2, mulitiVkCodes ...[]uint32) {
 	// 	return
 	// }
 	for _, vkCodes := range mulitiVkCodes {
-		registerKeyListening(cb, false, true, vkCodes, nil)
+		registerKeyListening(cb, prority, false, true, vkCodes, nil)
 	}
 }
 

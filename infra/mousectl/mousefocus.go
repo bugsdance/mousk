@@ -1,7 +1,7 @@
 package mousectl
 
 import (
-	"mousek/infra/base"
+	"mousk/infra/base"
 	"syscall"
 	"unicode/utf16"
 	"unsafe"

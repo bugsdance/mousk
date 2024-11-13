@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"mousek/infra/config"
-	"mousek/infra/mousectl"
+	"mousk/infra/config"
+	"mousk/infra/mousectl"
 	"testing"
 	"time"
 )

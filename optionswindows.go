@@ -1,7 +1,7 @@
 package main
 
 import (
-	"mousek/common/logger"
+	"mousk/common/logger"
 
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
