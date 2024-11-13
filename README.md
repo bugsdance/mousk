@@ -1,19 +1,51 @@
-# README
+# Keyboard-Controlled Mouse Project
 
-## About
+This project allows you to control your mouse using your keyboard, providing a variety of functions such as moving the mouse cursor, simulating mouse scrolls, and clicking mouse buttons. The project is designed to run on Windows.
 
-This is the official Wails React-TS template.
+## Key Feature: Mode Switching
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+To enable keyboard control of the mouse, you must switch to control mode by pressing `Left Alt + 0`. In normal mode, the keyboard will function as usual without affecting mouse operations. Only in control mode will the keyboard simulate mouse actions.
 
-## Live Development
+## Features
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+- **Mouse Movement**:
+  - Fast mode: Use `J`, `H`, `L`, `K` for down, left, right, and up respectively.
+  - Slow mode: Use `S`, `A`, `D`, `W` for down, left, right, and up respectively.
+  - **Speed levels**: Use `1`, `2`, `3`, `4`, `5` to switch between speed levels `[1, 8, 24, 48, 64]`.
 
-## Building
+- **Mouse Scroll Simulation**:
+  - Fast mode: Use `LSHIFT + J`, `LSHIFT + H`, `LSHIFT + L`, `LSHIFT + K` for down, left, right, and up respectively.
+  - Slow mode: Use `LSHIFT + S`, `LSHIFT + A`, `LSHIFT + D`, `LSHIFT + W` for down, left, right, and up respectively.
+  - **Speed levels**: Use `Shift + 1`, `Shift + 2`, `Shift + 3`, `Shift + 4`, `Shift + 5` to switch between speed levels `[1, 8, 24, 48, 64]`.
 
-To build a redistributable, production mode package, use `wails build`.
+- **Mouse Clicks**:
+  - Left Button Click: Primary - `I`, Secondary - `R`.
+  - Right Button Click: Primary - `O`, Secondary - `T`.
+  - Left Button Hold (drag): Primary - `C`, Secondary - `N`.
+
+- **General Controls**:
+  - Active Mode: `LALT + 0`
+  - Quit Mode: `LALT + 0`
+  - Toggle Control Mode: `LALT + 0`
+  - Temporary Quit Mode: `Q`
+  - Open Settings: `SPACE + COMMA`
+  - Reset Settings: `LALT + R`
+  - Force Quit: `LCONTROL + LSHIFT + A`
+
+## Installation
+
+1. Clone this repository to your local machine.
+2. Ensure you are running a Windows operating system.
+3. Run the executable or script provided in the repository.
+
+## Configuration
+
+You can customize the key bindings by editing the configuration file included in the repository.
+
+## Usage
+
+1. Start the application.
+2. Press `Left Alt + 0` to switch to control mode.
+3. Use the defined key bindings to control mouse movements, scrolls, and clicks:
+   - **Mouse Movement Speed**: Press `1`, `2`, `3`, `4`, `5` to switch between different movement speeds.
+   - **Mouse Scroll Speed**: Press `Shift + 1`, `Shift + 2`, `Shift + 3`, `Shift + 4`, `Shift + 5
