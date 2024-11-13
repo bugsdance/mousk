@@ -2,9 +2,13 @@
 
 This project allows you to control your mouse using your keyboard, providing a variety of functions such as moving the mouse cursor, simulating mouse scrolls, and clicking mouse buttons. The project is designed to run on Windows.
 
+## Supported Platforms
+
+- **Windows** (Only supported platform currently)
+
 ## Key Feature: Mode Switching
 
-To enable keyboard control of the mouse, you must switch to control mode by pressing `Left Alt + 0`. In normal mode, the keyboard will function as usual without affecting mouse operations. Only in control mode will the keyboard simulate mouse actions.
+To enable keyboard control of the mouse, you must toggle to control mode by pressing `Left Alt + 0`. In normal mode, the keyboard will function as usual without affecting mouse operations. Only in control mode will the keyboard simulate mouse actions.
 
 ## Features
 
